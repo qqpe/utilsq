@@ -25,17 +25,17 @@ function isNumeric(
     excludeDoubles?: boolean;
     symbols?: {
       command?:
-        | "acceptOnlyDots"
-        | "acceptOnlyCommas"
-        | "acceptBothDotsAndCommas"
-        | "acceptNone";
+        | "allowOnlyDots"
+        | "allowOnlyCommas"
+        | "allowBothDotsAndCommas"
+        | "allowNone";
     };
   } = {}
 ): boolean {
   // Give default values to options parameter
   const {
     symbols = {
-      command: "acceptOnlyDots",
+      command: "allowOnlyDots",
     },
   } = options;
 
@@ -53,10 +53,10 @@ function isNumeric(
 
   // Prepare list of numeric regxps, only one command will test the string based on options.symbols.command
   const commandsAndRegxps = {
-    acceptOnlyDots: numericOnlyDotsRegxp,
-    acceptOnlyCommas: numericOnlyCommasRegxp,
-    acceptBothDotsAndCommas: numericBothDotsAndCommasRegxp,
-    acceptNone: numericAcceptNone,
+    allowOnlyDots: numericOnlyDotsRegxp,
+    allowOnlyCommas: numericOnlyCommasRegxp,
+    allowBothDotsAndCommas: numericBothDotsAndCommasRegxp,
+    allowNone: numericAcceptNone,
   };
 
   // If type is not number or string return false
@@ -83,6 +83,10 @@ function isNumeric(
       ? String(isNaN(Number(value)) ? value : Number(value))
       : Number(value);
 
+  // return false if string value ends with comma (,)
+  if (options.loose && typeof value === "string" && value.endsWith(","))
+    return false;
+
   // Allow string type based on loose option
   if (options.loose)
     conditions.push(typeof value === "number" || typeof value === "string");
@@ -91,13 +95,12 @@ function isNumeric(
   // Fire given | default command, typeof value must be string.
   if (options.loose && typeof value === "string") {
     const commandgRegxp =
-      commandsAndRegxps[symbols?.command || "acceptOnlyDots"];
+      commandsAndRegxps[symbols?.command || "allowOnlyDots"];
     conditions.push(commandgRegxp.test(value));
   }
 
-  // return statment: "conditions do not include false?"
+  // return a Boolea, true if every condition statment evaluates to true, false if any statment did evaluated to false
   return !conditions.includes(false);
 }
-
 
 export { isString, isNumeric };

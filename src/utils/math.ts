@@ -74,7 +74,7 @@ function abs(value: number | number[]): number | number[] {
 }
 
 /**
- * 
+ *
  * @param x Number that represents dividend
  * @param y Number that represents divisor
  * @returns Result of division, quotient.
@@ -86,7 +86,7 @@ function divide(x: number, y: number): number {
 }
 
 /**
- * 
+ *
  * @param x Number that represents multiplicand
  * @param y Number that represents multiplier
  * @returns Result of multiplication, product.
@@ -96,7 +96,7 @@ function multiply(x: number, y: number): number {
 }
 
 /**
- * 
+ *
  * @param min Minimum number value that result integer can be, inclusive.
  * @param max Maximum number value that result integer can be, inclusive.
  * @returns Integer that is equal or greater than min and equal or less than max, result.

@@ -133,6 +133,18 @@ describe(isNumeric, () => {
         
         expect(_isNumeric("1.4,4", { symbols: { command: "allowBothDotsAndCommas" } })).toBeTruthy() // dot and comma provided, allowed
       });
+
+      it("can return correct result when command allowNone provided", () => {
+        expect(_isNumeric(1, { symbols: { command: "allowNone" } })).toBeTruthy() // is not string, ignored
+        expect(_isNumeric(1.4, { symbols: { command: "allowNone" } })).toBeTruthy() // is not string, ignored
+
+        expect(_isNumeric("1", { symbols: { command: "allowNone" } })).toBeTruthy() // no symbol provided, allowed
+        
+        expect(_isNumeric("1,", { symbols: { command: "allowNone" } })).toBeFalsy() // symbol provided, restricted
+        expect(_isNumeric("1,4,", { symbols: { command: "allowNone" } })).toBeFalsy() // symbol provided, restricted
+        expect(_isNumeric("1,4", { symbols: { command: "allowNone" } })).toBeFalsy() // symbol provided, restricted
+        expect(_isNumeric("1.4", { symbols: { command: "allowNone" } })).toBeFalsy() // symbol provided, restricted
+      });
     });
   });
 });

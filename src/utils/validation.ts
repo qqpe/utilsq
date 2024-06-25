@@ -49,7 +49,7 @@ function isNumeric(
   const numericOnlyDotsRegxp = /^((\d+)[.]?(\d+)?)+$/; // only none or more dotted regxp
   const numericOnlyCommasRegxp = /^((\d+)[,]?(\d+)?)+$/; // only none or more commas regxp
   const numericBothDotsAndCommasRegxp = /^((\d+)[.,]?(\d+)?)+$/; // only none or more (dots, commas) regxp
-  const numericAcceptNone = /^\d+$/; // ! NOT TESTED: it should return only ints?
+  const numericAcceptNone = /^\d+$/;
 
   // Prepare list of numeric regxps, only one command will test the string based on options.symbols.command
   const commandsAndRegxps = {

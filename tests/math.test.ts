@@ -151,7 +151,6 @@ describe(ceil, () => {
   it("can return ceil of a negatie value", () => {
     const _q = ceil(-1.4);
     const _y = ceil(-1.8);
-    console.log(_y);
     expect(_q).toBe(-1);
     expect(_y).toBe(-1);
   });
